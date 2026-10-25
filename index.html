@@ -9,7 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffc107' viewBox='0 0 16 16'%3E%3Cpath d='M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6zm11.386 3.785-1.806-2.41-.776 2.413zm-3.633.004.961-2.989H4.186l.963 2.995zM5.47 5.495 8 13.366l2.532-7.876zm-1.371-.999-.78-2.422-1.818 2.425zM1.499 5.5l5.113 6.817-2.192-6.82zm7.889 6.817 5.123-6.83-2.928.002z'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffc107' viewBox='0 0 16 16'%3E%3Cpath d='M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6zm11.386 3.785-1.806-2.41-.776 2.413zm-3.633.004.961-2.989H4.186l.963 2.995zM5.47 5.495 8 13.366l2.532-7.876zm-1.371-.999-.78-2.422-1.818 2.425zM1.499 5.5l5.113 6.817-2.192-6.82zm7.889 6.817 5.123-6.83-2.928.002z'/%3E%3C/svg%3E">
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -53,20 +54,14 @@
                 <div class="drawer-body">
                     <div class="drawer-body d-flex flex-column lg:flex-row lg:align-items-center">
                         <ul class="nav nav-pills navbar-nav ms-auto lg:align-items-center mb-5 lg:mb-0" id="navbarMenu">
-                            <li class="nav-item"><a class="nav-link" href="#inicio" data-bs-dismiss="drawer">Inicio</a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="#nosotros" data-bs-dismiss="drawer">Sobre
-                                    Nosotros</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#menu" data-bs-dismiss="drawer">Menú</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#reservaciones"
-                                    data-bs-dismiss="drawer">Reservaciones</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#contacto"
-                                    data-bs-dismiss="drawer">Contacto</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#nosotros">Sobre Nosotros</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#menu">Menú</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#reservaciones">Reservaciones</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                         </ul>
 
-                        <!-- Fuera del ul: el scroll-spy ya no lo ve y evita que se asentue en lugar de "Resevaciones"-->
-                        <a class="btn-solid theme-warning rounded-pill px-7 lg:ms-3" href="#reservaciones"
-                            data-bs-dismiss="drawer">
+                        <a class="btn-solid theme-warning rounded-pill px-7 lg:ms-3" href="#reservaciones">
                             <i class="bi bi-calendar2-check me-3"></i>Reservar Ahora
                         </a>
                     </div>
@@ -706,6 +701,16 @@
             e.preventDefault(); // evita que la página se recargue
             toast.show();       // muestra la notificación
             form.reset();       // limpia el formulario
+        });
+    </script>
+    <script type="module">
+        const drawer = document.getElementById('navbarDrawer');
+        const closeBtn = drawer.querySelector('.btn-close');
+
+        drawer.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', () => {
+                if (drawer.open) closeBtn.click(); // solo si está abierto (móvil)
+            });
         });
     </script>
 </body>

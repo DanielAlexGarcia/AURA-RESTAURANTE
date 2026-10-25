@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA - Haute Cuisine & Bistro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffc107' viewBox='0 0 16 16'%3E%3Cpath d='M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6zm11.386 3.785-1.806-2.41-.776 2.413zm-3.633.004.961-2.989H4.186l.963 2.995zM5.47 5.495 8 13.366l2.532-7.876zm-1.371-.999-.78-2.422-1.818 2.425zM1.499 5.5l5.113 6.817-2.192-6.82zm7.889 6.817 5.123-6.83-2.928.002z'/%3E%3C/svg%3E">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbarMenu" data-bs-root-margin="-20% 0px -60% 0px"
+    data-bs-threshold="0,0.1,0.5,1">
+    <!-- Toast para confirmar reservación (para mostrarse solo cuando se ejecuta el script que lo muestra) -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-5">
+        <div class="toast" id="toastReserva" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill fg-success me-3"></i>
+                <strong class="me-auto">Reserva recibida</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+            <div class="toast-body">
+                ¡Gracias! Le confirmaremos su reservación por correo electrónico o WhatsApp.
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 1. NAVBAR -->
+    <nav class="navbar navbar-translucent lg:navbar-expand fixed-top" data-bs-theme="dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-3" href="#inicio">
+                <i class="bi bi-gem fg-warning fs-2xl"></i>
+                <span class="fw-bold fs-2xl">AURA</span>
+            </a>
+
+            <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer" data-bs-target="#navbarDrawer"
+                aria-controls="navbarDrawer" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon" aria-hidden="true"></span>
+            </button>
+
+            <dialog class="drawer drawer-end" tabindex="-1" id="navbarDrawer" aria-labelledby="navbarDrawerLabel">
+                <div class="drawer-header">
+                    <h5 class="drawer-title fg-warning" id="navbarDrawerLabel">AURA</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Cerrar"></button>
+                </div>
+                <div class="drawer-body">
+                    <div class="drawer-body d-flex flex-column lg:flex-row lg:align-items-center">
+                        <ul class="nav nav-pills navbar-nav ms-auto lg:align-items-center mb-5 lg:mb-0" id="navbarMenu">
+                            <li class="nav-item"><a class="nav-link" href="#inicio" data-bs-dismiss="drawer">Inicio</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#nosotros" data-bs-dismiss="drawer">Sobre
+                                    Nosotros</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#menu" data-bs-dismiss="drawer">Menú</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#reservaciones"
+                                    data-bs-dismiss="drawer">Reservaciones</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#contacto"
+                                    data-bs-dismiss="drawer">Contacto</a></li>
+                        </ul>
+
+                        <!-- Fuera del ul: el scroll-spy ya no lo ve y evita que se asentue en lugar de "Resevaciones"-->
+                        <a class="btn-solid theme-warning rounded-pill px-7 lg:ms-3" href="#reservaciones"
+                            data-bs-dismiss="drawer">
+                            <i class="bi bi-calendar2-check me-3"></i>Reservar Ahora
+                        </a>
+                    </div>
+                </div>
+            </dialog>
+        </div>
+    </nav>
+
+    <!-- 2. HERO -->
+    <section id="inicio" class="position-relative overflow-hidden min-vh-100 d-flex align-items-center text-center">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80" alt=""
+            class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover opacity-25">
+        <div class="container position-relative z-1 py-12">
+            <div class="row justify-content-center">
+                <div class="col-12 lg:col-9">
+                    <span class="d-block fg-warning text-uppercase fw-semibold mb-5">
+                        <i class="bi bi-star-fill me-1"></i> Experiencia Gastronómica de Autor <i
+                            class="bi bi-star-fill ms-1"></i>
+                    </span>
+                    <h1 class="fs-6xl fw-bold mb-7">Donde la Tradición Encuentra la Elegancia</h1>
+                    <p class="fs-xl fg-2 mb-12">
+                        Una propuesta culinaria refinada con ingredientes locales de temporada, creada para cautivar los
+                        sentidos más exigentes.
+                    </p>
+                    <div class="d-flex flex-column sm:flex-row justify-content-center gap-5">
+                        <a href="#menu" class="btn-solid theme-warning btn-lg rounded-pill px-7">
+                            <i class="bi bi-book me-3"></i>Explorar Menú
+                        </a>
+                        <a href="#reservaciones" class="btn-outline theme-warning btn-lg rounded-pill px-7">
+                            <i class="bi bi-clock-history me-3"></i>Hacer Reservación
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SOBRE NOSOTROS -->
+    <section id="nosotros" class="bg-1 py-12">
+        <div class="container py-12">
+            <div class="row align-items-center g-12">
+                <div class="col-12 lg:col-6">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80"
+                            alt="Chef de AURA emplatando" class="img-fluid rounded-9 shadow-lg">
+                        <div
+                            class="position-absolute bottom-0 end-0 m-5 p-7 rounded-9 shadow bg-warning fg-contrast-warning d-none sm:d-block">
+                            <span class="d-block fs-3xl fw-bold">15+</span>
+                            <span class="small fw-semibold">Años de Excelencia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 lg:col-6">
+                    <span class="fg-warning text-uppercase fw-semibold">Nuestra Filosofía</span>
+                    <h2 class="fs-4xl fw-bold mt-3 mb-5">Pasión por la Perfección Gastronómica</h2>
+                    <hr class="w-6 border-warning mb-7">
+                    <p class="fs-lg fg-2 mb-7">
+                        Fundado en 2011, AURA nació del sueño de redefinir la experiencia gastronómica local. Fusionamos
+                        técnicas clásicas europeas con los sabores más vibrantes de nuestra tierra.
+                    </p>
+                    <p class="fg-2 mb-7">
+                        Cada platillo es una obra de arte concebida por nuestro equipo culinario, utilizando únicamente
+                        insumos orgánicos de productores regionales y mariscos de pesca sustentable.
+                    </p>
+
+                    <div class="row g-5">
+                        <div class="col-12 sm:col-4">
+                            <div class="card hover-lift h-100 text-center">
+                                <div class="card-body align-items-center">
+                                    <i class="bi bi-award fg-warning fs-3xl"></i>
+                                    <h4 class="h5 fw-bold mb-0">3 Estrellas</h4>
+                                    <span class="small fg-3">Guía Culinaria</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 sm:col-4">
+                            <div class="card hover-lift h-100 text-center">
+                                <div class="card-body align-items-center">
+                                    <i class="bi bi-person-badge fg-warning fs-3xl"></i>
+                                    <h4 class="h5 fw-bold mb-0">4 Chefs</h4>
+                                    <span class="small fg-3">Internacionales</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 sm:col-4">
+                            <div class="card hover-lift h-100 text-center">
+                                <div class="card-body align-items-center">
+                                    <i class="bi bi-cup-hot fg-warning fs-3xl"></i>
+                                    <h4 class="h5 fw-bold mb-0">50+</h4>
+                                    <span class="small fg-3">Etiquetas de Vino</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. MENÚ -->
+    <section id="menu" class="py-12">
+        <div class="container py-12">
+            <div class="text-center mb-12">
+                <span class="fg-warning text-uppercase fw-semibold">Carta Temporada 2026</span>
+                <h2 class="fs-4xl fw-bold mt-3">Nuestro Menú Degustación</h2>
+                <hr class="w-6 mx-auto border-warning">
+                <div class="row justify-content-center">
+                    <p class="fg-2 col-12 lg:col-8">
+                        Seleccione una categoría para explorar nuestras creaciones culinarias preparadas al momento.
+                    </p>
+                </div>
+            </div>
+
+            <ul class="nav nav-pills justify-content-center mb-12" id="menuTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="entradas-tab" data-bs-toggle="tab" data-bs-target="#entradas"
+                        type="button" role="tab" aria-controls="entradas" aria-selected="true"><i
+                            class="bi bi-egg-fried me-3"></i>Entradas</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="fuertes-tab" data-bs-toggle="tab" data-bs-target="#fuertes"
+                        type="button" role="tab" aria-controls="fuertes" aria-selected="false"><i
+                            class="bi bi-fire me-3"></i>Platos Fuertes</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="postres-tab" data-bs-toggle="tab" data-bs-target="#postres"
+                        type="button" role="tab" aria-controls="postres" aria-selected="false"><i
+                            class="bi bi-pie-chart me-3"></i>Postres</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="bebidas-tab" data-bs-toggle="tab" data-bs-target="#bebidas"
+                        type="button" role="tab" aria-controls="bebidas" aria-selected="false"><i
+                            class="bi bi-cup-straw me-3"></i>Bebidas &amp; Cocteles</button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+
+                <!-- ENTRADAS -->
+                <div class="tab-pane show active" id="entradas" role="tabpanel" aria-labelledby="entradas-tab"
+                    tabindex="0">
+                    <div class="row g-7">
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Carpaccio de Res">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Carpaccio de Res Wagyu</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$24</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Finas láminas de res Wagyu marinadas con aceite de
+                                        trufa blanca, alcaparras crujientes y lascas de queso Parmigiano Reggiano.</p>
+                                    <div>
+                                        <span class="badge theme-warning rounded-pill"><i
+                                                class="bi bi-star-fill me-1"></i>Especialidad</span>
+                                        <span class="badge theme-secondary rounded-pill">Sin Gluten</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Tartar de Atún">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Tartar de Atún Aleta Azul</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$22</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Atún fresco en cubos sobre una cama de aguacate
+                                        cremoso, soya cítrica, emulsión de sésamo y crocante de nori.</p>
+                                    <div>
+                                        <span class="badge theme-success rounded-pill">Marisco Fresco</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Burrata Artesanal">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Burrata de Puglia</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$19</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Queso burrata fresco acompañado de jitomates
+                                        confitados en romero, pesto de albahaca fresca y reducción de balsámico añejo.
+                                    </p>
+                                    <div>
+                                        <span class="badge theme-info rounded-pill">Vegetariano</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PLATOS FUERTES -->
+                <div class="tab-pane" id="fuertes" role="tabpanel" aria-labelledby="fuertes-tab" tabindex="0">
+                    <div class="row g-7">
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Ribeye Prime">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Ribeye Prime 400g</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$48</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Corte madurado en seco por 45 días, asado a las
+                                        brasas de leña de mezquite, servido con puré de papa trufado y espárragos.</p>
+                                    <div>
+                                        <span class="badge theme-warning rounded-pill"><i
+                                                class="bi bi-fire me-1"></i>Recomendación</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Salmón con glaseado de miso">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Salmón con Glaseado de Miso</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$36</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Filete de salmón salvaje sellado, glaseado con
+                                        miso dulce y jengibre, acompañado de vegetales orientales al wok y quinoa.</p>
+                                    <div>
+                                        <span class="badge theme-secondary rounded-pill">Sin Gluten</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Risotto de hongos">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Risotto de Hongos Silvestres</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$28</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Arroz Carnaroli cremoso con variedad de setas de
+                                        temporada, mantequilla de trufa negra y parmesano de 24 meses.</p>
+                                    <div>
+                                        <span class="badge theme-info rounded-pill">Vegetariano</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POSTRES -->
+                <div class="tab-pane" id="postres" role="tabpanel" aria-labelledby="postres-tab" tabindex="0">
+                    <div class="row g-7 justify-content-center">
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Tiramisú">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Tiramisú Clásico de la Casa</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$14</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Bizcochos soletilla impregnados en café espresso
+                                        italiano, licor Amaretto y mousse suave de mascarpone.</p>
+                                    <div>
+                                        <span class="badge theme-warning rounded-pill">Receta Tradicional</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Volcán de chocolate">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Volcán de Chocolate Belga</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$16</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Pastel caliente de chocolate 70% cacao con centro
+                                        líquido fluyente, acompañado de helado artesanal de vainilla Bourbon.</p>
+                                    <div>
+                                        <span class="badge theme-danger rounded-pill">Servido Caliente</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BEBIDAS -->
+                <div class="tab-pane" id="bebidas" role="tabpanel" aria-labelledby="bebidas-tab" tabindex="0">
+                    <div class="row g-7 justify-content-center">
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Cóctel de autor">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">AURA Smoked Old Fashioned</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$18</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Bourbon de reserva, jarabe de piloncillo
+                                        infusionado, amargo de angostura y humo de madera de roble ahumado en mesa.</p>
+                                    <div>
+                                        <span class="badge theme-warning rounded-pill">Mixología de Autor</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-4">
+                            <div class="card hover-lift h-100 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80"
+                                    class="w-100 h-12 object-fit-cover" alt="Vino tinto reserva">
+                                <div class="card-body flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="h5 fw-bold mb-0">Vino Tinto Gran Reserva (Copa)</h4>
+                                        <span class="fg-warning fw-bold fs-lg">$20</span>
+                                    </div>
+                                    <p class="small fg-2 flex-grow-1">Cosecha seleccionada Cabernet Sauvignon /
+                                        Tempranillo con 24 meses en barrica de roble francés. Notas de frutos negros y
+                                        especias.</p>
+                                    <div>
+                                        <span class="badge theme-secondary rounded-pill">Cava Seleccionada</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-12">
+                <button type="button" class="btn-outline theme-warning btn-lg rounded-pill px-12"
+                    data-bs-toggle="dialog" data-bs-target="#modalMenuCompleto">
+                    <i class="bi bi-file-earmark-pdf me-3"></i>Ver Carta Completa &amp; Maridaje
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="reservaciones" class="bg-1 py-12">
+        <!-- 5. RESERVACIONES <<Formulario para reservaciones>>-->
+        <div class="container py-12">
+            <div class="row justify-content-center">
+                <div class="col-12 lg:col-10">
+                    <div class="card">
+                        <div class="card-body p-7 md:p-12">
+                            <div class="text-center mb-7">
+                                <span class="fg-warning text-uppercase fw-semibold">Asegure su Experiencia</span>
+                                <h2 class="fs-4xl fw-bold mt-1">Hacer una Reservación</h2>
+                                <hr class="w-6 mx-auto border-warning">
+                                <p class="fg-2">
+                                    Complete el siguiente formulario. Le confirmaremos su reservación vía correo
+                                    electrónico o WhatsApp.
+                                </p>
+                            </div>
+
+                            <!-- Validación nativa del navegador; data-bs-validate aplica los estilos de Bootstrap.
+                                 Cambia action="#" por la URL de tu servidor para procesar la reserva. -->
+                            <form id="formReservacion" action="#" method="post" data-bs-validate>
+                                <div class="row g-5">
+
+                                    <div class="col-12 md:col-6">
+                                        <div class="form-field">
+                                            <label for="nombre" class="form-label">Nombre Completo *</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                                    placeholder="Ej. Carlos Mendoza" required>
+                                            </div>
+                                            <div class="invalid-feedback">Por favor ingrese su nombre completo.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-6">
+                                        <div class="form-field">
+                                            <label for="correo" class="form-label">Correo Electrónico *</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                                <input type="email" class="form-control" id="correo" name="correo"
+                                                    placeholder="correo@ejemplo.com" required>
+                                            </div>
+                                            <div class="invalid-feedback">Ingrese un correo electrónico válido.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-4">
+                                        <div class="form-field">
+                                            <label for="telefono" class="form-label">Teléfono *</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                                <input type="tel" class="form-control" id="telefono" name="telefono"
+                                                    placeholder="+52 55 1234 5678" required>
+                                            </div>
+                                            <div class="invalid-feedback">Ingrese su número de contacto.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-4">
+                                        <div class="form-field">
+                                            <label for="fecha" class="form-label">Fecha *</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i
+                                                        class="bi bi-calendar-event"></i></span>
+                                                <!-- Utiliza el metodo que ya incluye html para que el propio
+                                                            navegador perite seleccionar la fecha -->
+                                                <input type="date" class="form-control" id="fecha" name="fecha"
+                                                    required>
+                                            </div>
+                                            <div class="invalid-feedback">Seleccione la fecha deseada.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-4">
+                                        <div class="form-field">
+                                            <label for="hora" class="form-label">Hora *</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                                                <select class="form-control" id="hora" name="hora" required>
+                                                    <option value="" selected disabled>Seleccionar hora...</option>
+                                                    <option value="13:00">13:00 hrs (Comida)</option>
+                                                    <option value="14:30">14:30 hrs (Comida)</option>
+                                                    <option value="16:00">16:00 hrs (Comida)</option>
+                                                    <option value="19:30">19:30 hrs (Cena)</option>
+                                                    <option value="21:00">21:00 hrs (Cena)</option>
+                                                    <option value="22:30">22:30 hrs (Cena)</option>
+                                                </select>
+                                            </div>
+                                            <div class="invalid-feedback">Seleccione un horario.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-6">
+                                        <div class="form-field">
+                                            <label for="comensales" class="form-label">Número de Personas *</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-people"></i></span>
+                                                <select class="form-control" id="comensales" name="comensales" required>
+                                                    <option value="" selected disabled>Cantidad de comensales...
+                                                    </option>
+                                                    <option value="1">1 Persona (Individual)</option>
+                                                    <option value="2">2 Personas (Pareja)</option>
+                                                    <option value="4">4 Personas (Familia / Amigos)</option>
+                                                    <option value="6">6 Personas</option>
+                                                    <option value="8+">8+ Personas (Evento Especial)</option>
+                                                </select>
+                                            </div>
+                                            <div class="invalid-feedback">Especifique el número de comensales.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-6">
+                                        <div class="form-field">
+                                            <label for="zona" class="form-label">Preferencia de Zona</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                                <select class="form-control" id="zona" name="zona">
+                                                    <option value="Salón Principal">Salón Principal</option>
+                                                    <option value="Terraza al Aire Libre">Terraza al Aire Libre</option>
+                                                    <option value="Barra Mixología">Barra Mixología</option>
+                                                    <option value="Cava Privada">Cava Privada (VIP)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-field">
+                                            <label for="notas" class="form-label">Notas o Peticiones Especiales</label>
+                                            <textarea class="form-control" id="notas" name="notas" rows="3"
+                                                placeholder="Alergias, celebraciones de aniversario, cumpleaños o preferencias de asiento..."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center mt-7">
+                                        <button type="submit" class="btn-solid theme-warning btn-lg rounded-pill px-12">
+                                            <i class="bi bi-send-check me-3"></i>Confirmar Solicitud de Reserva
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIALOG: CARTA COMPLETA -->
+    <dialog class="dialog dialog-lg dialog-scrollable" id="modalMenuCompleto" tabindex="-1"
+        aria-labelledby="modalMenuCompletoLabel">
+        <div class="dialog-header">
+            <h5 class="dialog-title fg-warning" id="modalMenuCompletoLabel">
+                <i class="bi bi-journal-bookmark me-3"></i>Carta Completa &amp; Sugerencias del Sommelier
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="dialog" aria-label="Cerrar"></button>
+        </div>
+        <div class="dialog-body">
+            <div class="alert theme-warning mb-7" role="note">
+                <i class="bi bi-info-circle me-3"></i>
+                Todos nuestros precios incluyen impuestos. Avise a su mesero sobre cualquier alergia o restricción
+                alimenticia.
+            </div>
+
+            <h6 class="fg-warning">Especialidades del Chef (Menú de Pasos)</h6>
+            <ul class="list-group list-group-flush mb-7">
+                <li class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <strong>Menú Maridaje 5 Tiempos</strong>
+                        <div class="small fg-3">Incluye maridaje con vinos internacionales seleccionados</div>
+                    </div>
+                    <span class="fg-warning fw-bold">$120</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <strong>Experiencia de Cortes Tomahawk Dry Aged (Para 2)</strong>
+                        <div class="small fg-3">1.2 kg con guarniciones gourmet y mantequilla de trufa</div>
+                    </div>
+                    <span class="fg-warning fw-bold">$135</span>
+                </li>
+            </ul>
+
+            <h6 class="fg-warning">Sugerencias de Maridaje</h6>
+            <p class="small fg-2 mb-0">
+                Nuestro Sommelier Ejecutivo recomienda acompañar los cortes de res con nuestro <em>Valbuena 5°
+                    Reserva</em> o los mariscos con un fresco <em>Albariño de Rías Baixas</em>.
+            </p>
+        </div>
+        <div class="dialog-footer">
+            <button type="button" class="btn-solid theme-secondary rounded-pill"
+                data-bs-dismiss="dialog">Cerrar</button>
+            <button type="button" class="btn-solid theme-warning rounded-pill" data-bs-dismiss="dialog">Reservar
+                Mesa</button>
+        </div>
+    </dialog>
+
+    <!-- 6. CONTACTO Y UBICASIÓN -->
+    <section id="contacto" class="py-12">
+        <div class="container py-12">
+            <div class="row g-7">
+                <div class="col-12 lg:col-4">
+                    <h3 class="fw-bold mb-5">Ubicación &amp; Horarios</h3>
+                    <hr class="w-6 border-warning mb-7">
+
+                    <div class="d-flex align-items-start gap-5 mb-7">
+                        <i class="bi bi-geo-alt-fill fg-warning fs-xl"></i>
+                        <div>
+                            <h6 class="mb-1">Dirección</h6>
+                            <p class="small fg-2 mb-0">Av. Presidente Masaryk 410, Polanco, Ciudad de México.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-5 mb-7">
+                        <i class="bi bi-clock-fill fg-warning fs-xl"></i>
+                        <div>
+                            <h6 class="mb-1">Horarios de Atención</h6>
+                            <p class="small fg-2 mb-1">Martes a Sábado: 13:00 - 23:30 hrs</p>
+                            <p class="small fg-2 mb-0">Domingos: 13:00 - 18:00 hrs (Lunes Cerrado)</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-5 mb-7">
+                        <i class="bi bi-telephone-fill fg-warning fs-xl"></i>
+                        <div>
+                            <h6 class="mb-1">Contacto Directo</h6>
+                            <p class="small fg-2 mb-0">+52 (55) 5280-9900</p>
+                            <p class="small fg-2 mb-0">contacto@aurarestaurante.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 lg:col-8">
+                    <div class="card h-100 overflow-hidden">
+                        <iframe title="Ubicación AURA Restaurant"
+                            src="https://www.google.com/maps?q=19.4312,-99.1945&z=16&output=embed"
+                            class="w-100 h-100 border-0" height="360" allowfullscreen loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-1 py-7">
+        <div class="container">
+            <div class="row align-items-center gy-5">
+                <div class="col-12 md:col-4 text-center md:text-start">
+                    <a class="navbar-brand d-inline-flex align-items-center gap-3" href="#inicio">
+                        <i class="bi bi-gem fg-warning fs-xl"></i>
+                        <span class="fw-bold fs-xl">AURA</span>
+                    </a>
+                </div>
+
+                <div class="col-12 md:col-4 text-center">
+                    <p class="small fg-3 mb-0">&copy; 2026 AURA Bistro. Todos los derechos reservados.</p>
+                </div>
+
+                <div class="col-12 md:col-4 text-center md:text-end">
+                    <div class="d-flex justify-content-center md:justify-content-end gap-5">
+                        <a href="https://www.instagram.com/?hl=es" class="fg-2 fs-lg" aria-label="Instagram"><i
+                                class="bi bi-instagram"></i></a>
+                        <a href="https://www.facebook.com/?locale=es_LA" class="fg-2 fs-lg" aria-label="Facebook"><i
+                                class="bi bi-facebook"></i></a>
+                        <a href="https://web.whatsapp.com/" class="fg-2 fs-lg" aria-label="WhatsApp"><i
+                                class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap para que lo carge al final y asegurarse de que funcionara correctamente-->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL"
+        crossorigin="anonymous"></script>
+
+    <!-- Script sensillo para mostrar el toast de confirmacion de reservación -->
+    <script type="module">
+        import { Toast } from 'https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js';
+
+        const form = document.getElementById('formReservacion');
+        const toast = Toast.getOrCreateInstance(document.getElementById('toastReserva'));
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // evita que la página se recargue
+            toast.show();       // muestra la notificación
+            form.reset();       // limpia el formulario
+        });
+    </script>
+</body>
+
+</html>
